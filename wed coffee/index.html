@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Góc Nhỏ Coffee – Menu</title>
+<meta name="description" content="Menu online Góc Nhỏ Coffee – cà phê, trà trái cây, nước ép. Gọi món nhanh qua điện thoại hoặc Zalo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+  /* ====== Màu sắc: đổi ở đây là đổi cả web ====== */
+  :root{
+    --bg:#fbf7ef; --card:#fffdf8; --ink:#3b2a20; --muted:#8a7565;
+    --brand:#6b4430; --accent:#c8862f; --line:#eadfcd; --ok:#2f8a4c; --off:#b8473a;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1d1612; --card:#271e18; --ink:#f3e8dc; --muted:#b5a18f;
+      --brand:#e2b48c; --accent:#e0a050; --line:#3a2d24;
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Be Vietnam Pro",system-ui,sans-serif;background:var(--bg);color:var(--ink);
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:44px 44px;background-attachment:fixed;padding-bottom:96px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px}
+
+  /* Header */
+  header{padding:52px 0 18px;text-align:center}
+  .logo{font-weight:800;font-size:42px;letter-spacing:2px;color:var(--brand);line-height:1}
+  .logo span{display:block;font-family:Pacifico,cursive;font-weight:400;font-size:28px;color:var(--accent);letter-spacing:0;margin-top:4px}
+  .info{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;font-size:14px;color:var(--muted)}
+  .pill{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:6px 12px}
+  .status{font-weight:700}
+  .status.open{color:var(--ok)} .status.closed{color:var(--off)}
+  .lang{position:absolute;top:14px;right:16px;background:var(--card);border:1px solid var(--line);color:var(--ink);
+    border-radius:99px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+
+  /* Thanh danh mục */
+  nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 0}
+  .tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;
+    padding:8px 14px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
+  .tab.on{background:var(--brand);color:var(--bg);border-color:var(--brand)}
+  .search{width:100%;margin-top:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);
+    background:var(--card);color:var(--ink);font:inherit;font-size:15px}
+
+  /* Menu */
+  section{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 18px 8px;scroll-margin-top:120px}
+  h2{font-weight:800;font-size:24px;color:var(--accent);letter-spacing:1px;margin-bottom:6px}
+  h2 small{font-size:22px;margin-right:6px}
+  .item{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px dashed var(--line)}
+  .item:first-of-type{border-top:0}
+  .name{font-weight:700;font-size:17px}
+  .sub{font-size:13px;color:var(--muted);font-style:italic;margin-top:2px}
+  .tag{display:inline-block;font-size:11px;font-style:normal;font-weight:700;color:#fff;background:var(--accent);
+    border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+  .grow{flex:1;min-width:0}
+  .price{font-weight:800;font-size:17px;color:var(--brand);white-space:nowrap}
+  .qty{display:flex;align-items:center;gap:6px}
+  .qty button{width:30px;height:30px;border-radius:50%;border:1px solid var(--brand);background:transparent;
+    color:var(--brand);font-size:18px;line-height:1;cursor:pointer}
+  .qty button.add{background:var(--brand);color:var(--bg)}
+  .qty b{min-width:16px;text-align:center}
+  .empty{text-align:center;color:var(--muted);padding:30px 0}
+
+  /* Liên hệ */
+  .contact{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .contact a{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 6px;border-radius:14px;
+    background:var(--card);border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:14px;font-weight:500}
+  .contact a span{font-size:22px}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin:22px 0 10px}
+
+  /* Giỏ món */
+  .cart{position:fixed;left:0;right:0;bottom:0;z-index:10;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    background:var(--brand);color:var(--bg);display:none}
+  .cart.show{display:block}
+  .cart .wrap{display:flex;align-items:center;gap:12px;padding:0}
+  .cart .sum{flex:1;font-size:14px} .cart .sum b{font-size:18px;display:block}
+  .cart button{border:0;border-radius:12px;padding:12px 16px;font:inherit;font-weight:700;cursor:pointer;
+    background:var(--accent);color:#fff}
+  .cart .clear{background:transparent;color:var(--bg);border:1px solid var(--bg);padding:11px 12px}
+
+  dialog{margin:auto;border:0;border-radius:18px;padding:20px;width:min(92vw,420px);background:var(--card);color:var(--ink)}
+  dialog::backdrop{background:rgba(0,0,0,.45)}
+  dialog h3{margin-bottom:10px}
+  dialog pre{white-space:pre-wrap;font:inherit;font-size:14px;background:var(--bg);border-radius:10px;padding:12px;max-height:45vh;overflow:auto}
+  dialog input{width:100%;margin-top:10px;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+  .row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .row a,.row button{flex:1;text-align:center;border:0;border-radius:12px;padding:12px;font:inherit;font-weight:700;
+    text-decoration:none;cursor:pointer;background:var(--brand);color:var(--bg)}
+  .row .ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<button class="lang" id="lang" aria-label="Đổi ngôn ngữ">EN</button>
+
+<header class="wrap">
+  <div class="logo" id="shopName"></div>
+  <div class="info">
+    <span class="pill status" id="status"></span>
+    <span class="pill" id="hours"></span>
+    <span class="pill" id="addr"></span>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <div class="tabs" id="tabs"></div>
+    <input class="search" id="q" type="search" placeholder="Tìm món…" aria-label="Tìm món">
+  </div>
+</nav>
+
+<main class="wrap" id="menu"></main>
+
+<div class="wrap">
+  <div class="contact">
+    <a id="call"><span>📞</span><t data-vi="Gọi đặt" data-en="Call"></t></a>
+    <a id="zalo" target="_blank" rel="noopener"><span>💬</span>Zalo</a>
+    <a id="map" target="_blank" rel="noopener"><span>📍</span><t data-vi="Chỉ đường" data-en="Directions"></t></a>
+  </div>
+  <footer id="foot"></footer>
+</div>
+
+<div class="cart" id="cart">
+  <div class="wrap">
+    <div class="sum"><span id="cartCount"></span><b id="cartTotal"></b></div>
+    <button class="clear" id="clear" aria-label="Xoá giỏ">✕</button>
+    <button id="order"></button>
+  </div>
+</div>
+
+<dialog id="dlg">
+  <h3 id="dlgTitle"></h3>
+  <pre id="dlgText"></pre>
+  <input id="note" placeholder="Ghi chú: ít đá, giao tới…">
+  <div class="row">
+    <a id="sendSms"></a>
+    <button id="copy" class="ghost"></button>
+  </div>
+  <div class="row"><button class="ghost" id="close"></button></div>
+</dialog>
+
+<script>
+/* =========================================================
+   THÔNG TIN QUÁN — sửa phần này cho từng khách hàng
+   ========================================================= */
+const SHOP = {
+  name: "GÓC NHỎ", tagline: "Coffee",
+  phone: "0900000000",                 // số mẫu
+  zalo: "0900000000",
+  address: "123 Đường Mẫu, TP. Hải Phòng",
+  mapQuery: "Hải Phòng",
+  open: "07:00", close: "22:00",
+};
+
+const MENU = [
+  { id:"coffee", icon:"☕", vi:"Cà phê", en:"Coffee", items:[
+    { vi:"Cà phê đen", en:"Black Coffee", price:15 },
+    { vi:"Cà phê nâu", en:"Milk Coffee", price:15 },
+    { vi:"Cà phê kem muối", en:"Salted Cream Coffee", price:20, hot:true },
+    { vi:"Bạc xỉu", en:"Vietnamese White Coffee", price:20 },
+  ]},
+  { id:"tea", icon:"🍹", vi:"Trà trái cây", en:"Fruit Tea", items:[
+    { vi:"Trà tắc", en:"Kumquat Tea", price:15 },
+    { vi:"Trà mãng cầu", en:"Soursop Tea", price:25 },
+    { vi:"Trà xoài chanh leo", en:"Mango Passion Fruit Tea", price:25, hot:true },
+    { vi:"Trà măng cụt chanh leo", en:"Mangosteen Passion Fruit Tea", price:30 },
+    { vi:"Mận mãng cầu", en:"Plum Soursop Tea", price:30 },
+  ]},
+  { id:"noncoffee", icon:"🍵", vi:"Không cà phê", en:"Non-coffee", items:[
+    { vi:"Matcha latte", en:"Matcha Latte", price:25 },
+    { vi:"Ca cao", en:"Cocoa", price:25 },
+  ]},
+  { id:"juice", icon:"🍊", vi:"Nước ép", en:"Juice", items:[
+    { vi:"Nước ép dứa", en:"Pineapple Juice", price:25 },
+    { vi:"Nước ép cam", en:"Orange Juice", price:30 },
+    { vi:"Nước ép dưa hấu", en:"Watermelon Juice", price:25 },
+  ]},
+];
+/* ========================================================= */
+
+const T = {
+  vi:{ search:"Tìm món…", open:"● Đang mở cửa", closed:"● Đã đóng cửa", hours:"Mở cửa", best:"Bán chạy",
+       items:"món", order:"Gửi đơn", title:"Đơn của bạn", total:"Tổng", sms:"Gửi tin nhắn", copy:"Sao chép",
+       copied:"Đã chép!", close:"Đóng", empty:"Không tìm thấy món nào", note:"Ghi chú: ít đá, giao tới…",
+       foot:"Quét mã QR trên bàn để xem menu · Giá đã gồm VAT" },
+  en:{ search:"Search…", open:"● Open now", closed:"● Closed", hours:"Hours", best:"Best seller",
+       items:"items", order:"Send order", title:"Your order", total:"Total", sms:"Send SMS", copy:"Copy",
+       copied:"Copied!", close:"Close", empty:"No items found", note:"Note: less ice, deliver to…",
+       foot:"Scan the QR code on your table · Prices include VAT" },
+};
+
+let lang = "vi";
+try { lang = localStorage.getItem("lang") || "vi"; } catch(e){}
+const cart = {};
+const $ = s => document.querySelector(s);
+const money = k => (k*1000).toLocaleString("vi-VN") + "đ";
+const key = (c,i) => c + ":" + i;
+
+function isOpen(){
+  const now = new Date(), m = now.getHours()*60 + now.getMinutes();
+  const [oh,om] = SHOP.open.split(":").map(Number), [ch,cm] = SHOP.close.split(":").map(Number);
+  return m >= oh*60+om && m < ch*60+cm;
+}
+
+function renderStatic(){
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  $("#shopName").innerHTML = `${SHOP.name}<span>${SHOP.tagline}</span>`;
+  const st = $("#status"); const o = isOpen();
+  st.textContent = o ? t.open : t.closed; st.className = "pill status " + (o ? "open" : "closed");
+  $("#hours").textContent = `🕖 ${SHOP.open} – ${SHOP.close}`;
+  $("#addr").textContent = "📍 " + SHOP.address;
+  $("#q").placeholder = t.search;
+  $("#note").placeholder = t.note;
+  $("#lang").textContent = lang === "vi" ? "EN" : "VI";
+  $("#foot").textContent = t.foot;
+  $("#call").href = "tel:" + SHOP.phone;
+  $("#zalo").href = "https://zalo.me/" + SHOP.zalo;
+  $("#map").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(SHOP.mapQuery);
+  document.querySelectorAll("t[data-vi]").forEach(el => el.textContent = el.dataset[lang]);
+  $("#tabs").innerHTML = MENU.map(c => `<button class="tab" data-go="${c.id}">${c.icon} ${c[lang]}</button>`).join("");
+}
+
+function renderMenu(){
+  const t = T[lang], q = $("#q").value.trim().toLowerCase();
+  const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d").toLowerCase();
+  const nq = norm(q);
+  let html = "";
+  MENU.forEach(c => {
+    const rows = c.items.map((it,i) => ({it,i})).filter(({it}) => !q || norm(it.vi).includes(nq) || norm(it.en).includes(nq));
+    if (!rows.length) return;
+    html += `<section id="${c.id}"><h2><small>${c.icon}</small>${c[lang].toUpperCase()}</h2>` +
+      rows.map(({it,i}) => {
+        const k = key(c.id,i), n = cart[k] || 0;
+        const main = lang === "vi" ? it.vi : it.en, sub = lang === "vi" ? it.en : it.vi;
+        return `<div class="item">
+          <div class="grow"><div class="name">${main}${it.hot ? `<span class="tag">${t.best}</span>` : ""}</div>
+          <div class="sub">${sub}</div></div>
+          <div class="price">${it.price}K</div>
+          <div class="qty">${n ? `<button data-k="${k}" data-d="-1" aria-label="Bớt">−</button><b>${n}</b>` : ""}
+            <button class="add" data-k="${k}" data-d="1" aria-label="Thêm">+</button></div>
+        </div>`;
+      }).join("") + `</section>`;
+  });
+  $("#menu").innerHTML = html || `<p class="empty">${t.empty}</p>`;
+  renderCart();
+}
+
+function lines(){
+  return Object.entries(cart).filter(([,n]) => n > 0).map(([k,n]) => {
+    const [cid,i] = k.split(":"); const it = MENU.find(c => c.id === cid).items[i];
+    return { name: it[lang], n, sum: it.price * n };
+  });
+}
+
+function renderCart(){
+  const t = T[lang], ls = lines();
+  const count = ls.reduce((a,l) => a + l.n, 0), total = ls.reduce((a,l) => a + l.sum, 0);
+  $("#cart").classList.toggle("show", count > 0);
+  $("#cartCount").textContent = `${count} ${t.items}`;
+  $("#cartTotal").textContent = money(total);
+  $("#order").textContent = t.order;
+}
+
+function orderText(){
+  const t = T[lang], ls = lines();
+  const total = ls.reduce((a,l) => a + l.sum, 0);
+  let s = ls.map(l => `• ${l.n} x ${l.name} — ${money(l.sum)}`).join("\n") + `\n${t.total}: ${money(total)}`;
+  const note = $("#note").value.trim();
+  if (note) s += `\n📝 ${note}`;
+  return s;
+}
+
+function openOrder(){
+  const t = T[lang];
+  $("#dlgTitle").textContent = t.title;
+  $("#sendSms").textContent = t.sms;
+  $("#copy").textContent = t.copy;
+  $("#close").textContent = t.close;
+  refreshOrder();
+  $("#dlg").showModal();
+}
+function refreshOrder(){
+  const txt = orderText();
+  $("#dlgText").textContent = txt;
+  $("#sendSms").href = `sms:${SHOP.phone}?body=` + encodeURIComponent(`[${SHOP.name} ${SHOP.tagline}]\n` + txt);
+}
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("button[data-k]");
+  if (b){ const k = b.dataset.k; cart[k] = Math.max(0,(cart[k]||0) + Number(b.dataset.d)); renderMenu(); return; }
+  const tab = e.target.closest("[data-go]");
+  if (tab){
+    document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x === tab));
+    const sec = document.getElementById(tab.dataset.go); if (sec) sec.scrollIntoView({behavior:"smooth"});
+  }
+});
+$("#q").addEventListener("input", renderMenu);
+$("#lang").onclick = () => { lang = lang === "vi" ? "en" : "vi"; try{localStorage.setItem("lang",lang)}catch(e){} renderStatic(); renderMenu(); };
+$("#clear").onclick = () => { for (const k in cart) delete cart[k]; renderMenu(); };
+$("#order").onclick = openOrder;
+$("#note").addEventListener("input", refreshOrder);
+$("#close").onclick = () => $("#dlg").close();
+$("#copy").onclick = async () => {
+  try { await navigator.clipboard.writeText(orderText()); $("#copy").textContent = T[lang].copied; } catch(e){}
+};
+
+renderStatic(); renderMenu();
+setInterval(renderStatic, 60000);
+</script>
+</body>
+</html>
